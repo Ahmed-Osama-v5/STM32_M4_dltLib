@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fx:FIBEX xmlns:fx="http://www.asam.net/xml/fbx"
+          xmlns:ho="http://www.asam.net/xml"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.asam.net/xml/fbx fibex.xsd"
+          VERSION="4.1.2">
+
+  <fx:PROJECT>
+    <ho:SHORT-NAME>MCU_DLT_PROJECT</ho:SHORT-NAME>
+  </fx:PROJECT>
+
+  <fx:ELEMENTS>
+
+    <!-- ═══════════════════════════════════════════════════════
+         PDUs (signal containers / argument definitions)
+         ═══════════════════════════════════════════════════════ -->
+
+    <fx:PDUS>
+
+      <!-- MSG 1: MOTOR_SPEED — uint32 speed_rpm, float32 temperature_c -->
+      <fx:PDU ID="PDU_MOTOR_SPEED">
+        <ho:SHORT-NAME>MOTOR_SPEED</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>8</fx:BYTE-LENGTH>
+        <fx:SIGNAL-INSTANCES>
+          <fx:SIGNAL-INSTANCE ID="SI_MOTOR_SPEED_RPM">
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_SPEED_RPM"/>
+          </fx:SIGNAL-INSTANCE>
+          <fx:SIGNAL-INSTANCE ID="SI_MOTOR_TEMP_C">
+            <fx:BIT-POSITION>32</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_TEMP_C_FLOAT"/>
+          </fx:SIGNAL-INSTANCE>
+        </fx:SIGNAL-INSTANCES>
+      </fx:PDU>
+
+      <!-- MSG 2: FAULT_CODE — uint16 fault_code -->
+      <fx:PDU ID="PDU_FAULT_CODE">
+        <ho:SHORT-NAME>FAULT_CODE</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>2</fx:BYTE-LENGTH>
+        <fx:SIGNAL-INSTANCES>
+          <fx:SIGNAL-INSTANCE ID="SI_FAULT_CODE">
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_FAULT_CODE"/>
+          </fx:SIGNAL-INSTANCE>
+        </fx:SIGNAL-INSTANCES>
+      </fx:PDU>
+
+      <!-- MSG 3: BOOT_DONE — no args -->
+      <fx:PDU ID="PDU_BOOT_DONE">
+        <ho:SHORT-NAME>BOOT_DONE</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>0</fx:BYTE-LENGTH>
+      </fx:PDU>
+
+      <!-- MSG 4: TEMP_READING — uint8 sensor_id, uint16 raw_adc, float32 temp_c -->
+      <fx:PDU ID="PDU_TEMP_READING">
+        <ho:SHORT-NAME>TEMP_READING</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>7</fx:BYTE-LENGTH>
+        <fx:SIGNAL-INSTANCES>
+          <fx:SIGNAL-INSTANCE ID="SI_SENSOR_ID">
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_SENSOR_ID"/>
+          </fx:SIGNAL-INSTANCE>
+          <fx:SIGNAL-INSTANCE ID="SI_RAW_ADC">
+            <fx:BIT-POSITION>8</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_RAW_ADC"/>
+          </fx:SIGNAL-INSTANCE>
+          <fx:SIGNAL-INSTANCE ID="SI_TEMP_C_SENS">
+            <fx:BIT-POSITION>24</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_TEMP_C_FLOAT"/>
+          </fx:SIGNAL-INSTANCE>
+        </fx:SIGNAL-INSTANCES>
+      </fx:PDU>
+
+      <!-- MSG 5: ASSERT_FAIL — uint32 file_hash, uint16 line -->
+      <fx:PDU ID="PDU_ASSERT_FAIL">
+        <ho:SHORT-NAME>ASSERT_FAIL</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>6</fx:BYTE-LENGTH>
+        <fx:SIGNAL-INSTANCES>
+          <fx:SIGNAL-INSTANCE ID="SI_FILE_HASH">
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_FILE_HASH"/>
+          </fx:SIGNAL-INSTANCE>
+          <fx:SIGNAL-INSTANCE ID="SI_LINE">
+            <fx:BIT-POSITION>32</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_LINE"/>
+          </fx:SIGNAL-INSTANCE>
+        </fx:SIGNAL-INSTANCES>
+      </fx:PDU>
+
+      <!-- MSG 0xFFFF0001: STATUS_REPORT — uint32 drop_count, uint8 buf_used_pct, uint32 uptime_sec -->
+      <fx:PDU ID="PDU_STATUS_REPORT">
+        <ho:SHORT-NAME>STATUS_REPORT</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>9</fx:BYTE-LENGTH>
+        <fx:SIGNAL-INSTANCES>
+          <fx:SIGNAL-INSTANCE ID="SI_DROP_COUNT">
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_DROP_COUNT"/>
+          </fx:SIGNAL-INSTANCE>
+          <fx:SIGNAL-INSTANCE ID="SI_BUF_USED_PCT">
+            <fx:BIT-POSITION>32</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_BUF_USED_PCT"/>
+          </fx:SIGNAL-INSTANCE>
+          <fx:SIGNAL-INSTANCE ID="SI_UPTIME_SEC">
+            <fx:BIT-POSITION>40</fx:BIT-POSITION>
+            <fx:IS-HIGH-LOW-BYTE-ORDER>false</fx:IS-HIGH-LOW-BYTE-ORDER>
+            <fx:SIGNAL-REF ID-REF="SIG_UPTIME_SEC"/>
+          </fx:SIGNAL-INSTANCE>
+        </fx:SIGNAL-INSTANCES>
+      </fx:PDU>
+
+    </fx:PDUS>
+
+    <!-- ═══════════════════════════════════════════════════════
+         FRAMES (message definitions with IDs)
+         ═══════════════════════════════════════════════════════ -->
+
+    <fx:FRAMES>
+
+      <fx:FRAME ID="FRAME_MOTOR_SPEED">
+        <ho:SHORT-NAME>MOTOR_SPEED</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>8</fx:BYTE-LENGTH>
+        <fx:MESSAGE-ID>1</fx:MESSAGE-ID>
+        <fx:APPLICATION-ID>MOTR</fx:APPLICATION-ID>
+        <fx:CONTEXT-ID>CTRL</fx:CONTEXT-ID>
+        <fx:PDU-INSTANCES>
+          <fx:PDU-INSTANCE ID="PI_MOTOR_SPEED">
+            <fx:PDU-REF ID-REF="PDU_MOTOR_SPEED"/>
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+          </fx:PDU-INSTANCE>
+        </fx:PDU-INSTANCES>
+      </fx:FRAME>
+
+      <fx:FRAME ID="FRAME_FAULT_CODE">
+        <ho:SHORT-NAME>FAULT_CODE</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>2</fx:BYTE-LENGTH>
+        <fx:MESSAGE-ID>2</fx:MESSAGE-ID>
+        <fx:APPLICATION-ID>MOTR</fx:APPLICATION-ID>
+        <fx:CONTEXT-ID>CTRL</fx:CONTEXT-ID>
+        <fx:PDU-INSTANCES>
+          <fx:PDU-INSTANCE ID="PI_FAULT_CODE">
+            <fx:PDU-REF ID-REF="PDU_FAULT_CODE"/>
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+          </fx:PDU-INSTANCE>
+        </fx:PDU-INSTANCES>
+      </fx:FRAME>
+
+      <fx:FRAME ID="FRAME_BOOT_DONE">
+        <ho:SHORT-NAME>BOOT_DONE</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>0</fx:BYTE-LENGTH>
+        <fx:MESSAGE-ID>3</fx:MESSAGE-ID>
+        <fx:APPLICATION-ID>SYS</fx:APPLICATION-ID>
+        <fx:CONTEXT-ID>BOOT</fx:CONTEXT-ID>
+        <fx:PDU-INSTANCES>
+          <fx:PDU-INSTANCE ID="PI_BOOT_DONE">
+            <fx:PDU-REF ID-REF="PDU_BOOT_DONE"/>
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+          </fx:PDU-INSTANCE>
+        </fx:PDU-INSTANCES>
+      </fx:FRAME>
+
+      <fx:FRAME ID="FRAME_TEMP_READING">
+        <ho:SHORT-NAME>TEMP_READING</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>7</fx:BYTE-LENGTH>
+        <fx:MESSAGE-ID>4</fx:MESSAGE-ID>
+        <fx:APPLICATION-ID>SENS</fx:APPLICATION-ID>
+        <fx:CONTEXT-ID>TEMP</fx:CONTEXT-ID>
+        <fx:PDU-INSTANCES>
+          <fx:PDU-INSTANCE ID="PI_TEMP_READING">
+            <fx:PDU-REF ID-REF="PDU_TEMP_READING"/>
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+          </fx:PDU-INSTANCE>
+        </fx:PDU-INSTANCES>
+      </fx:FRAME>
+
+      <fx:FRAME ID="FRAME_ASSERT_FAIL">
+        <ho:SHORT-NAME>ASSERT_FAIL</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>6</fx:BYTE-LENGTH>
+        <fx:MESSAGE-ID>5</fx:MESSAGE-ID>
+        <fx:APPLICATION-ID>SYS</fx:APPLICATION-ID>
+        <fx:CONTEXT-ID>BOOT</fx:CONTEXT-ID>
+        <fx:PDU-INSTANCES>
+          <fx:PDU-INSTANCE ID="PI_ASSERT_FAIL">
+            <fx:PDU-REF ID-REF="PDU_ASSERT_FAIL"/>
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+          </fx:PDU-INSTANCE>
+        </fx:PDU-INSTANCES>
+      </fx:FRAME>
+
+      <fx:FRAME ID="FRAME_STATUS_REPORT">
+        <ho:SHORT-NAME>STATUS_REPORT</ho:SHORT-NAME>
+        <fx:BYTE-LENGTH>9</fx:BYTE-LENGTH>
+        <fx:MESSAGE-ID>4294901761</fx:MESSAGE-ID>  <!-- 0xFFFF0001 -->
+        <fx:APPLICATION-ID>DLT</fx:APPLICATION-ID>
+        <fx:CONTEXT-ID>STAT</fx:CONTEXT-ID>
+        <fx:PDU-INSTANCES>
+          <fx:PDU-INSTANCE ID="PI_STATUS_REPORT">
+            <fx:PDU-REF ID-REF="PDU_STATUS_REPORT"/>
+            <fx:BIT-POSITION>0</fx:BIT-POSITION>
+          </fx:PDU-INSTANCE>
+        </fx:PDU-INSTANCES>
+      </fx:FRAME>
+
+    </fx:FRAMES>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SIGNALS (data type definitions)
+         ═══════════════════════════════════════════════════════ -->
+
+    <fx:SIGNALS>
+
+      <fx:SIGNAL ID="SIG_SPEED_RPM">
+        <ho:SHORT-NAME>speed_rpm</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT32"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_TEMP_C_FLOAT">
+        <ho:SHORT-NAME>temperature_c</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_FLOAT32"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_FAULT_CODE">
+        <ho:SHORT-NAME>fault_code</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT16"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_SENSOR_ID">
+        <ho:SHORT-NAME>sensor_id</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT8"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_RAW_ADC">
+        <ho:SHORT-NAME>raw_adc</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT16"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_FILE_HASH">
+        <ho:SHORT-NAME>file_hash</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT32"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_LINE">
+        <ho:SHORT-NAME>line</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT16"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_DROP_COUNT">
+        <ho:SHORT-NAME>drop_count</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT32"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_BUF_USED_PCT">
+        <ho:SHORT-NAME>buf_used_pct</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT8"/>
+      </fx:SIGNAL>
+
+      <fx:SIGNAL ID="SIG_UPTIME_SEC">
+        <ho:SHORT-NAME>uptime_sec</ho:SHORT-NAME>
+        <fx:CODING-REF ID-REF="CODING_UINT32"/>
+      </fx:SIGNAL>
+
+    </fx:SIGNALS>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CODINGS (base data types)
+         ═══════════════════════════════════════════════════════ -->
+
+    <fx:CODINGS>
+
+      <fx:CODING ID="CODING_UINT8">
+        <ho:SHORT-NAME>UINT8</ho:SHORT-NAME>
+        <ho:CODED-TYPE ho:BASE-DATA-TYPE="A_UINT8" CATEGORY="STANDARD-LENGTH-TYPE">
+          <ho:BIT-LENGTH>8</ho:BIT-LENGTH>
+        </ho:CODED-TYPE>
+      </fx:CODING>
+
+      <fx:CODING ID="CODING_UINT16">
+        <ho:SHORT-NAME>UINT16</ho:SHORT-NAME>
+        <ho:CODED-TYPE ho:BASE-DATA-TYPE="A_UINT16" CATEGORY="STANDARD-LENGTH-TYPE">
+          <ho:BIT-LENGTH>16</ho:BIT-LENGTH>
+        </ho:CODED-TYPE>
+      </fx:CODING>
+
+      <fx:CODING ID="CODING_UINT32">
+        <ho:SHORT-NAME>UINT32</ho:SHORT-NAME>
+        <ho:CODED-TYPE ho:BASE-DATA-TYPE="A_UINT32" CATEGORY="STANDARD-LENGTH-TYPE">
+          <ho:BIT-LENGTH>32</ho:BIT-LENGTH>
+        </ho:CODED-TYPE>
+      </fx:CODING>
+
+      <fx:CODING ID="CODING_FLOAT32">
+        <ho:SHORT-NAME>FLOAT32</ho:SHORT-NAME>
+        <ho:CODED-TYPE ho:BASE-DATA-TYPE="A_FLOAT32" CATEGORY="STANDARD-LENGTH-TYPE">
+          <ho:BIT-LENGTH>32</ho:BIT-LENGTH>
+        </ho:CODED-TYPE>
+      </fx:CODING>
+
+    </fx:CODINGS>
+
+  </fx:ELEMENTS>
+
+</fx:FIBEX>
